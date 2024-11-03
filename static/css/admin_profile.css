@@ -1,0 +1,212 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* light grey background */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #006d6e; /* teal background */
+    padding: 10px 50px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 60px;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn img {
+    height: 24px;
+    width: auto;
+    display: block;
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a img {
+    height: 24px;
+    width: auto;
+    display: block;
+}
+
+main {
+    padding: 50px;
+}
+
+.admin-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-panel {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.admin-panel h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #006d6e; /* teal color */
+}
+
+.admin-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-panel table, th, td {
+    border: 1px solid #ddd;
+}
+
+.admin-panel th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+.admin-panel th {
+    background-color: #f4f4f4;
+}
+
+.admin-panel button {
+    background-color: #006d6e; /* teal background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.admin-panel button:hover {
+    background-color: #004c4c;
+}
+
+.admin-panel form {
+    margin-bottom: 20px;
+}
+
+.admin-panel input, .admin-panel textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.admin-panel input[type="file"] {
+    padding: 0;
+}
+
+.admin-panel label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+footer {
+    background-color: #006d6e; /* teal background for footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.inline-form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.inline-form textarea {
+    width: 200px;
+    height: 60px;
+    margin-bottom: 10px;
+    resize: vertical;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.inline-form button {
+    background-color: #006d6e; /* teal background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.inline-form button:hover {
+    background-color: #004c4c;
+}
+
+.admin-panel textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

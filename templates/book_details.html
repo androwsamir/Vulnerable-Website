@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book_details.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Cyberus Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Cyberus</a></li>
+                <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+                {% if 'admin_id' in session %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('admin_page') }}">Admin Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% elif 'user_id' in session %}
+                <li>
+                    <a href="#" id="cart-icon">
+                        <img src="{{ url_for('static', filename='images/cart.png') }}" alt="Cart">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    {% if session['user_picture'] %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/' + session['user_picture']) }}" alt="Profile">
+                    </a>
+                    {% else %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    {% endif %}
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('user_profile', id=session['user_id']) }}">My Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                
+                {% else %}
+                <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/login.png') }}" alt="Log In"></a></li>
+                {% endif %}
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cart Slider -->
+    <div id="cart-slider" class="cart-slider">
+        <div class="cart-content">
+            <img src="{{ url_for('static', filename='images/return.png') }}" id="close-slider" class="close-slider" alt="Close">
+            <h2>Your Cart</h2>
+            <ul>
+                <!-- Loop through cart items -->
+                {% for item in card_items %}
+                <li>
+                    <img src="{{ url_for('static', filename='images/' + item['image']) }}" alt="{{ item['name'] }}">
+                    <p>{{ item['name'] }}</p>
+                    <p>{{ item['price'] }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <section class="banner">
+        <h1>HAPPY READING!</h1>
+    </section>
+
+    <!-- Book Details Section -->
+    <section class="book-detail">
+        <div class="book-info">
+            <img src="{{ url_for('static', filename='images/' + book.image) }}" alt="{{ book.name }}">
+            <div class="details">
+                <h1>{{ book.name }}</h1>
+                <p>{{ book.description }}</p>
+                <p class="price">{{ book.price }}</p>
+                <form action="{{ url_for('add_to_cart', id=book.id) }}" method="get">
+                    <button type="submit" class="add-to-cart"{% if not is_logged_in %}disabled{% endif %}>Add to Cart</button>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="flash-messages">
+                                    <div class="alert alert-{{ category }}">
+                                        {{ message }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </form>
+                <button type="submit" class="show-stock">Show Stock</button>
+                <p id="stock-value" class="stock-value">{{ stock_response }}</p>
+            </div>
+        </div>
+        <div class="comments">
+            <h2>Comments</h2>
+            <form action="{{ url_for('add_comment', book_id=book.id) }}" method="post">
+                <textarea name="comment_text" placeholder="Leave a comment..." {% if not is_logged_in %}disabled{% endif %}></textarea>
+                <button type="submit" class="submit-comment" {% if not is_logged_in %}disabled{% endif %}>Submit</button>
+            </form>
+            <div class="comments-list">
+                {% for comment, user in comments_with_users %}
+                <div class="comment-item">
+                    <div class="comment-header">
+                        {% if user.picture %}
+                        <img src="{{ url_for('static', filename='images/' + user.picture) }}" class="user-pic" alt="{{ user.username }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/login.png') }}" class="user-pic" alt="User">
+                        {% endif %}
+                        <span class="user-name">{{ user.username }}</span>
+                        <span class="comment-timestamp">{{ comment.timestamp }}</span>
+                    </div>
+                    <p class="comment-text">{{ comment.text | safe }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bookworm. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to toggle cart slider and stock display -->
+    <script>
+        document.getElementById('cart-icon').addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.toggle('open');
+        });
+
+        document.getElementById('close-slider').addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.remove('open');
+        });
+
+        document.querySelector('.show-stock').addEventListener('click', function(event) {
+            const bookId = "{{ book.id }}";  // Pass the book ID from the template
+            const stockValueElement = document.getElementById('stock-value');
+
+            const stockAPI= "http://127.0.0.1:8888/stock/"+bookId
+
+            fetch('/show-stock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ stockAPI: stockAPI })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    stockValueElement.innerHTML = data.stock; // Get the response text if the request is successful
+                    stockValueElement.style.display = 'block';
+                } else {
+                    throw new Error(data.message || 'Failed to fetch stock information.');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                stockValueElement.textContent = 'Error fetching stock information';
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Book Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_us.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Cyberus Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Cyberus</a></li>
+                <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+                {% if 'admin_id' in session %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('admin_page') }}">Admin Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% elif 'user_id' in session %}
+                <li>
+                    <a href="#" id="cart-icon">
+                        <img src="{{ url_for('static', filename='images/cart.png') }}" alt="Cart">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    {% if session['user_picture'] %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/' + session['user_picture']) }}" alt="Profile">
+                    </a>
+                    {% else %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    {% endif %}
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('user_profile', id=session['user_id']) }}">My Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/login.png') }}" alt="Log In"></a></li>
+                {% endif %}
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="contact-us">
+            <h2>Contact Us</h2>
+            <form action="{{ url_for('submit_contact') }}" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bookworm. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

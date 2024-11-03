@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Cyberus Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Cyberus</a></li>
+                <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+                {% if 'user_id' in session and 'admin_id' not in session %}
+                <li>
+                    <a href="#" id="cart-icon">
+                        <img src="{{ url_for('static', filename='images/cart.png') }}" alt="Cart">
+                    </a>
+                </li>
+                {% endif %}
+                {% if 'admin_id' in session %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('admin_page') }}">Admin Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% elif 'user_id' in session %}
+                <li class="dropdown">
+                    {% if session['user_picture'] %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/' + session['user_picture']) }}" alt="Profile">
+                    </a>
+                    {% else %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    {% endif %}
+
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('user_profile', id=session['user_id']) }}">My Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/login.png') }}" alt="Log In"></a></li>
+                {% endif %}
+            </ul>
+            <form action="{{ url_for('search_for_book') }}" method="get" class="search-bar">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </nav>
+    </header>
+
+    <!-- Cart Slider -->
+    <div id="cart-slider" class="cart-slider">
+        <div class="cart-content">
+            <img src="{{ url_for('static', filename='images/return.png') }}" id="close-slider" class="close-slider" alt="Close">
+            <h2>Your Cart</h2>
+            <ul>
+                <!-- Loop through cart items -->
+                {% for item in card_items %}
+                <li>
+                    <img src="{{ url_for('static', filename='images/' + item['image']) }}" alt="{{ item['name'] }}">
+                    <p>{{ item['name'] }}</p>
+                    <p>{{ item['price'] }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <section class="banner">
+        <h1>HAPPY READING!</h1>
+    </section>
+
+    <!-- Main Content -->
+    <main class="scroll-container">
+        <section class="new-books">
+            <h2>New Books</h2>
+            {% if user_input %}
+            <div>
+                <h2> User Input:</h2>
+                <p>{{ user_input }}</p>
+            </div>
+            {% endif %}
+            <div class="books">
+                {% for book in books %}
+                <a href="{{ url_for('bookPage', id=book.id) }}" class="book">
+                    <img src="{{ url_for('static', filename='images/' + book.image) if book.image else url_for('static', filename='images/default.png') }}" alt="{{ book.name }}">
+                    <div class="book-info">
+                        <p class="book-title">{{ book.name }}</p>
+                        <p class="book-price">{{ book.price }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bookworm. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to toggle cart slider -->
+    <script>
+        document.getElementById('cart-icon')?.addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.toggle('open');
+        });
+
+        document.getElementById('close-slider').addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.remove('open');
+        });
+    </script>
+</body>
+</html>

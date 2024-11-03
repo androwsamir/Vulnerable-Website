@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Cyberus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about_us.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Cyberus Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Cyberus</a></li>
+                <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+                {% if 'admin_id' in session %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('admin_page') }}">Admin Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% elif 'user_id' in session %}
+                <li>
+                    <a href="#" id="cart-icon">
+                        <img src="{{ url_for('static', filename='images/cart.png') }}" alt="Cart">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    {% if session['user_picture'] %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/' + session['user_picture']) }}" alt="Profile">
+                    </a>
+                    {% else %}
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    {% endif %}
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('user_profile', id=session['user_id']) }}">My Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/login.png') }}" alt="Log In"></a></li>
+                {% endif %}
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="overview">
+            <h1>About Cyberus</h1>
+            <p>Cyberus Stud is a non-profit organization aiming to contribute to the digital transformation of Egypt by raising Cyber Security and Blockchain awareness and developing generations of security professionals.</p>
+        </section>
+
+        <section class="details">
+            <h2>Industry</h2>
+            <p>Computer and Network Security</p>
+
+            <h2>Founded</h2>
+            <p>2021</p>
+
+            <h2>Specialties</h2>
+            <ul>
+                <li>Cyber Security</li>
+                <li>Network Security</li>
+                <li>Application Security</li>
+                <li>Wireless Security</li>
+                <li>CTFs</li>
+                <li>Student Training</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bookworm. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to toggle cart slider -->
+    <script>
+        document.getElementById('cart-icon').addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.toggle('open');
+        });
+
+        document.getElementById('close-slider').addEventListener('click', function() {
+            document.getElementById('cart-slider').classList.remove('open');
+        });
+    </script>
+</body>
+</html>

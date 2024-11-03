@@ -1,0 +1,517 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #006d6e;
+    padding: 10px 50px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 60px;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn img {
+    height: 24px; /* Adjust the size if needed */
+    width: auto;
+    display: block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff; /* Background color for the dropdown */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0; /* Align the dropdown to the right of the button */
+}
+
+/* Dropdown links */
+.dropdown-content a {
+    color: black; /* Text color for dropdown items */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn img {
+    background-color: #006d6e;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white; /* White text for nav links */
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Center the items vertically */
+}
+
+nav ul li a img {
+    height: 24px; /* Adjust login icon size */
+    width: auto; /* Maintain aspect ratio */
+    display: block;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Banner Styles */
+.banner {
+    background-image: url('/static/images/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+/* Main Content Styles */
+main {
+    padding: 20px 50px;
+    margin-top: 20px;
+}
+
+.book-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.book-info {
+    flex: 2;
+    padding-right: 20px;
+}
+
+.book-info img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.details h1 {
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #006d6e;
+}
+
+.details p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.details .price {
+    font-size: 1.5em;
+    color: #e94e77;
+    margin-top: 10px;
+}
+
+.add-to-cart {
+    display: inline-block;
+    background-color: #e94e77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-to-cart:hover {
+    background-color: #d43f5a;
+}
+
+.show-stock {
+    display: inline-block;
+    background-color: #e94e77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.show-stock:hover {
+    background-color: #d43f5a;
+}
+
+.stock-value {
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #333;
+    display: none; 
+}
+
+.comments {
+    flex: 1;
+}
+
+.comments h2 {
+    margin-bottom: 10px;
+}
+
+.comments textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comments .submit-comment {
+    background-color: #e94e77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.comments .submit-comment:hover {
+    background-color: #d43f5a;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #006d6e;
+    color: white;
+}
+
+/* Cart Slider Styles */
+#cart-slider {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden */
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+#cart-slider.open {
+    right: 0;
+}
+
+.cart-content {
+    padding: 20px;
+}
+
+.cart-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cart-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-content ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-content ul li img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.cart-content ul li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.close-slider {
+    display: block;
+    background-color: white; /* White background for close icon */
+    border: none;
+    padding: 5px; /* Smaller padding */
+    text-align: center;
+    margin-bottom: 20px;
+    width: 15%;
+    height: 15%;
+    cursor: pointer;
+}
+
+.close-slider img {
+    width: 24px; /* Adjust the size if needed */
+    height: auto;
+}
+
+.close-slider:hover {
+    background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .banner h1 {
+        font-size: 2em;
+    }
+
+    .book-detail {
+        flex-direction: column;
+    }
+
+    .book-info {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .book-info img {
+        width: 100%;
+    }
+
+    .details h1 {
+        font-size: 2em;
+    }
+
+    .details p {
+        font-size: 1em;
+    }
+
+    .details .price {
+        font-size: 1.2em;
+    }
+
+    .comments textarea {
+        height: 100px;
+    }
+
+    .comments h2 {
+        font-size: 1.5em;
+    }
+
+    .submit-comment {
+        width: 100%;
+    }
+}
+
+/* Comments Section Styles */
+.comments {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures rounded corners are respected */
+}
+
+.comments h2 {
+    margin-bottom: 15px;
+    font-size: 2em;
+    color: #006d6e;
+    border-bottom: 2px solid #006d6e; /* Adds a bottom border for emphasis */
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.comments h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 5px;
+    background-color: #e94e77; /* Adds a decorative line under the header */
+}
+
+.comments textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    resize: vertical; /* Allows vertical resizing only */
+}
+
+.submit-comment {
+    background-color: #e94e77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-comment:hover {
+    background-color: #d43f5a;
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+/* Comments List Styles */
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    position: relative;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* Adjusted for spacing between header and text */
+}
+
+.user-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #e94e77;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-name {
+    font-weight: bold;
+    color: #006d6e;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.comment-timestamp {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.comment-text {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.5;
+    margin-left: 75px; /* Align text with the start of the comment header */
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin-top: 10px;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f8d7da;
+    color: #a94442;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

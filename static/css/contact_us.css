@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* light grey background for content */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #006d6e; /* teal background */
+    padding: 10px 50px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 60px;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn img {
+    height: 24px; /* Adjust the size if needed */
+    width: auto;
+    display: block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff; /* Background color for the dropdown */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0; /* Align the dropdown to the right of the button */
+}
+
+/* Dropdown links */
+.dropdown-content a {
+    color: black; /* Text color for dropdown items */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn img {
+    background-color: #006d6e;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white; /* White text for nav links */
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Center the items vertically */
+}
+
+nav ul li a img {
+    height: 24px; /* Adjust login icon size */
+    width: auto; /* Maintain aspect ratio */
+    display: block;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+main {
+    padding: 50px 100px;
+}
+
+.contact-us {
+    text-align: center;
+}
+
+.contact-us h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #006d6e; /* teal color for section headers */
+}
+
+.contact-us form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white; /* White background for the form */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-us .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.contact-us .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #006d6e; /* teal color for labels */
+}
+
+.contact-us .form-group input,
+.contact-us .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.contact-us button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #006d6e; /* teal background for button */
+    color: white; /* white text for button */
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact-us button:hover {
+    background-color: #005a5b; /* darker teal on hover */
+}
+
+footer {
+    background-color: #006d6e; /* teal background for footer */
+    color: white; /* white text for footer */
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}

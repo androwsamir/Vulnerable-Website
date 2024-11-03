@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_profile.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Cyberus Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Cyberus</a></li>
+                <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+                {% if 'admin_id' in session %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="{{ url_for('static', filename='images/login.png') }}" alt="Profile">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('admin_page') }}">Admin Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="admin-section">
+            <h1>Admin Dashboard</h1>
+
+            <!-- Manage Users -->
+            <div class="admin-panel">
+                <h2>Manage Users</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <form action="{{ url_for('delete_user') }}" method="post">
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Manage Books -->
+            <div class="admin-panel">
+                <h2>Manage Books</h2>
+                <form action="{{ url_for('add_book') }}" method="post" enctype="multipart/form-data">
+                    <h3>Add New Book</h3>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                    <label for="stock">Stock:</label>
+                    <input type="number" id="stock" name="stock" required>
+                    <button type="submit">Add Book</button>
+                </form>
+
+                <h3>Existing Books</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.name }}</td>
+                            <td>${{ book.price }}</td>
+                            <td>
+                                <form action="{{ url_for('delete_book') }}" method="post">
+                                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Manage Comments -->
+            <div class="admin-panel">
+                <h2>Manage Comments</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Comment ID</th>
+                            <th>Book ID</th>
+                            <th>Username</th>
+                            <th>Comment</th>
+                            <th>Timestamp</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comment in comments %}
+                        <tr>
+                            <td>{{ comment.id }}</td>
+                            <td>{{ comment.book_id }}</td>
+                            <td>{{ comment.username }}</td>
+                            <td>{{ comment.text }}</td>
+                            <td>{{ comment.timestamp }}</td>
+                            <td>
+                                <form action="{{ url_for('edit_comment', comment_id=comment['id']) }}" method="post" class="inline-form">
+                                    <textarea name="new_text" required>{{ comment.text }}</textarea>
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="post" class="inline-form">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bookworm. All rights reserved.</p>
+    </footer>
+</body>
+</html>
